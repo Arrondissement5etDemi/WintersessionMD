@@ -32,7 +32,7 @@ Let's create a working directory called `MD` and go into it, by entering these t
 
 ### Installing Conda and LAMMPS
 
-There are multiple ways to install LAMMPS, see [here](https://docs.lammps.org/Install.html). Unfortunately, Princeton's clusters won't let you install softwares anywhere using commands like `sudo apt-get`. So let's use Conda to install LAMMPS. Conda is a package management system and environment management system that runs on a variety of operation systems, and saves us the troubles of figuring out environment dependencies, etc. It's much faster than building and installing using cmake, too.
+There are multiple ways to install LAMMPS, see [here](https://docs.lammps.org/Install.html). Unfortunately, Princeton's clusters won't let you install softwares in random places using commands like `sudo apt-get`. So let's use Conda to install LAMMPS. Conda is a package management system and environment management system that runs on a variety of operation systems, and saves us the troubles of figuring out environment dependencies, etc. It's much faster than building and installing using cmake, too.
 
 See what versions of Conda the Adroit cluster has:
 
