@@ -57,7 +57,7 @@ LAMMPS should be installed! The termial should now look like this:
 
     (my_lammps_env) [<YourNetID>@adroit-vis WintersessionMD]$
 
-Try typing either `$ lmp` or `$ lmp_serial` in your command line to check if it's installed correctly. (Some installations requires you to type `$ lmp_mpi` instead of `$ lmp` .)     
+Try typing either `$ lmp` or `$ lmp_serial` in your command line to check if it's installed correctly. (Some distributions require you to type `$ lmp_mpi` instead of `$ lmp` .)     
 Expected output for `$ lmp` :   
 
     LAMMPS (23 Jun 2022 - Update 2)
