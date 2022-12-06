@@ -11,7 +11,7 @@ Large-scale Atomic/Molecular Massively Parallel Simulator ([LAMMPS](https://www.
 
 ## Installation
 
-### Get into the cluster
+### Getting into the cluster
 
 To ensure that everyone has the same environment, let's use Princeton Research Computing's [Adroit](https://researchcomputing.princeton.edu/systems/adroit) cluster, which is a high-performance computer to do our calculations. SSH into your cluster by typing the following command into your terminal. DO NOT type the dollar sign; it just means that we're working with a terminal.
 
