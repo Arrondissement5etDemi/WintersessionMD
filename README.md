@@ -76,3 +76,5 @@ The program is waiting for LAMMPS commands. `ctrl/command + c` to stop the execu
 We will use OVITO to visualize the molecules. No command-line is needed here. It can be downloaded and installed to your local machine via [this link](https://www.ovito.org/). You can also build it via GitHub source code following the instructions [here](https://www.ovito.org/manual/development/build_linux.html).
     
 ## Your first LAMMPS job: A Lennard-Jones liquid
+
+To be continued ...
