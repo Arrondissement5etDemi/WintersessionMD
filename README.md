@@ -77,4 +77,45 @@ We will use OVITO to visualize the molecules. No command-line is needed here. It
     
 ## Your first LAMMPS job: A Lennard-Jones fluid
 
-To be continued ...
+    units lj  
+    atom_style atomic  
+    boundary p p p  
+    
+    lattice fcc 0.238732  
+    region box block 0 5 0 5 0 5  
+    create_box 1 box  
+    variable rnseed index 10  
+    variable number equal ceil(random(1,1000000000,${rnseed})/100000.0)   
+    print ${number}  
+    create_atoms 1 random 500 ${number} NULL overlap 0.5 maxtry 500  
+      
+    timestep 0.00025
+
+    mass 1 1.0
+    velocity all create 1 ${number}
+    read_dump lj_cut1_31.lammpstrj 3300000 x y z vx vy vz box no
+
+    pair_style lj/cut 1
+    pair_coeff 1 1 80.0 1.0 1
+
+    fix 1 all nvt temp 1 1 $(100.0*dt)
+
+    thermo 1000
+    thermo_modify format line "%d %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e"
+
+    dump my_dump2 all custom 100 lj_cut1_32.lammpstrj id type x y z vx vy vz
+
+    compute myRDF all rdf 200 1 1
+    fix 2 all ave/time 50 6 1000 c_myRDF[*] file lj_cut1.rdf mode vector ave window 6
+
+    compute myvacf all vacf
+    fix storeMyVacf all vector 1 c_myvacf[4]
+
+    compute msd_1 all msd
+    fix store_msd_1 all vector 10 c_msd_1[4]
+    variable fitslope_1 equal slope(f_store_msd_1)/6/(10*dt)
+    fix 3 all ave/time 100 1 100 c_msd_1[4] v_fitslope_1 c_myvacf[4] file lj_cut1_diffusion.txt
+
+    run 100000
+
+to be continued...
