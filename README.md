@@ -53,9 +53,11 @@ We are now ready to install LAMMPS by typing the following commands one by one
     $ conda activate my-lammps-env
     $ conda install lammps
     
+> If you'd like to copy and paste the commands instead, just copy here and right-click in the terminal.
+
 LAMMPS should be installed! The termial should now look like this:
 
-    (my_lammps_env) [<YourNetID>@adroit-vis WintersessionMD]$
+    (my_lammps_env) [<YourNetID>@adroit-vis MD]$
 
 Try typing either `$ lmp` or `$ lmp_serial` in your command line to check if it's installed correctly. (Some distributions require you to type `$ lmp_mpi` instead of `$ lmp` .)     
 Expected output for `$ lmp` :   
