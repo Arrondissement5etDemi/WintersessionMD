@@ -187,9 +187,11 @@ We will demonstrate some useful features of OVITO, including
 -generate particle trajectories  
 -create snapshots and videos  
 
-> Excercise: Modify `lj.lmp` so that it simulates a quench of the LJ fluid at number density $\rho = 0.3$, from initial temperature $T_i=1.5$ to final temperature $T_f=0.01$. Set timestep $dt = 0.001$ and run 20000 steps. Visualize the trajectory in OVITO. Your result should look like [this video](https://github.com/Arrondissement5etDemi/WintersessionMD/blob/main/video_spinodal.mp4).
+### Excercise
 
+Modify `lj.lmp` so that it simulates a quench of the LJ fluid at number density $\rho = 0.3$, from initial temperature $T_i=1.5$ to final temperature $T_f=0.01$, with temperature damping factor 10.0 dt. Set timestep $dt = 0.001$ and run 20000 steps. Visualize the trajectory in OVITO. Your result should look like [this video](https://github.com/Arrondissement5etDemi/WintersessionMD/blob/main/video_spinodal.mp4).
 
+![spinodal snapshot](https://github.com/Arrondissement5etDemi/WintersessionMD/blob/main/snapshot2.png)
 
 ### Bonus skill! extra information that you can compute
 
