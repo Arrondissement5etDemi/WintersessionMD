@@ -105,7 +105,7 @@ We want to simulate a fluid in which each two particles are interacting with $v_
     velocity all create 1 2023    #gives all atom of a random velocity, such that the initial temperature is 1. 2023 is a random seed here.
 
     pair_style lj/cut 2.5         #defines the LJ potential. It is cut off (v(r) set to 0) after r > 2.5 \sigma
-    pair_coeff 1 1 1.0 1.0        #sets the LJ coefficients \varepsilon and \sigma between atom types "1" and "1". We are 
+    pair_coeff 1 1 1.0 1.0        #sets the LJ coefficients \varepsilon and \sigma between atom types "1" and "1". We simply set both \varepsilon and \sigma to be 1.
 
     fix 1 all nvt temp 1.0 1.0 $(100.0*dt)  #sets the equation of state: we are fixing number of particles, volume and temperature during each time step. 
                                             #the 3 numbers after "temp" are thermostat parameters: intial and final temperatures, and temperature damping parameter
