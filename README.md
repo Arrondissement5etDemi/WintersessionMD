@@ -89,7 +89,7 @@ where $r$ is the distance between two molecules, $\varepsilon$ is an energy para
 
 ![The LJ potential.](https://upload.wikimedia.org/wikipedia/en/thumb/e/e7/Graph_of_Lennard-Jones_potential.png/1920px-Graph_of_Lennard-Jones_potential.png)
  
-We want to simulate a fluid in which each two particles are interacting with $v_{LJ}(r)$. Let's write a LAMMPS script for that! Open a file called `lj.lmp` using the command `vi lj.lmp`, press `i` for insert mode, and copy and paste the following script. (To paste, just right click.) Anything after `#` is a comment explaining the purpose of the line. For more information of each command, see the LAMMPS documentation [here](https://docs.lammps.org).
+We want to simulate a fluid in which each two particles are interacting with $v_{LJ}(r)$. Let's write a LAMMPS script for that! Open a file called `lj.lmp` using the command `$ vi lj.lmp`, press `i` for insert mode, and copy and paste the following script. (To paste, just right click.) Anything after `#` is a comment explaining the purpose of the line. For more information of each command, see the LAMMPS documentation [here](https://docs.lammps.org).
 
 ```julia
 #This document is named "lj.lmp"
@@ -183,14 +183,15 @@ What do you see as the system evolves? Is the phenomena you see consistent with 
 
 We will demonstrate some useful features of OVITO, including  
 -change color and size of particles  
--visualizing velocities  
+-visualize velocities  
 -generate particle trajectories  
 -create snapshots and videos  
 
 ### Excercise
 
-Modify `lj.lmp` so that it simulates a quench of the LJ fluid at number density $\rho = 0.3$, from initial temperature $T_i=1.5$ to final temperature $T_f=0.01$, with temperature damping factor 10.0 dt. Set timestep $dt = 0.001$ and run 20000 steps. Visualize the trajectory in OVITO. Your result should look like [this video](https://github.com/Arrondissement5etDemi/WintersessionMD/blob/main/video_spinodal.mp4).
+Modify `lj.lmp` so that it simulates a quench of the LJ fluid at number density $\rho = 0.3$, from initial temperature $T_i=1.5$ to final temperature $T_f=0.01$, with temperature damping factor 10.0 dt. Set timestep $dt = 0.001$ and run 20000 steps. Visualize the trajectory in OVITO. Your result should look like [this video](https://github.com/Arrondissement5etDemi/WintersessionMD/blob/main/video_spinodal.mp4).  
 
+The final snapshot should look something like this:
 ![spinodal snapshot](https://github.com/Arrondissement5etDemi/WintersessionMD/blob/main/snapshot2.png)
 
 ### Bonus skill! extra information that you can compute
