@@ -75,35 +75,54 @@ The program is waiting for LAMMPS commands. `ctrl/command + c` to stop the execu
 
 We will use OVITO to visualize the molecules. No command-line is needed here. It can be downloaded and installed to your local machine via [this link](https://www.ovito.org/). You can also build it via GitHub source code following the instructions [here](https://www.ovito.org/manual/development/build_linux.html).
     
-## Your first LAMMPS job: A Lennard-Jones fluid
+## Your first LAMMPS script! A Lennard-Jones fluid
 
-    units lj  
-    atom_style atomic  
-    boundary p p p  
+> ⚠️ Actually, the syntax of LAMMPS is notoriously difficult, as it often mixes function names, arugment names and argument values, without an intuitive way to tell which is which. It can be intimidating when you first encounter a LAMMPS script. We feel that the best way to learn LAMMPS is to start with someone else's script and modify it according to your need. 
+
+The Lennard-Jones (LJ) potential is a potential commonly used to describe the intermolecular forces between noble gas molecules, given by 
+
+$$ \frac{v_{LJ}(r)}{\varepsilon} = 4\left(\left(\frac{r}{\sigma}\right)^{-12} - \left({r\over \sigma}\right)^{-6}\right), $$
+
+where $r$ is the distance between two molecules, $\varepsilon$ is an energy parameter, and $\sigma$ is a distance parameter. The following figure shows a plot of the LJ potential. Note the steep repulsion (positive energy) at small $r$ (i.e., when the molecules are close), and the attraction at intermediate $r$. 
+
+![The LJ potential.](https://upload.wikimedia.org/wikipedia/en/thumb/e/e7/Graph_of_Lennard-Jones_potential.png/1920px-Graph_of_Lennard-Jones_potential.png)
+ 
+We want to simulate a fluid in which each two particles are interacting with $v_{LJ}(r)$. Let's write a LAMMPS script for that! Open a file called `lj.lmp` using the command `vi lj.lmp`, press `i` for insert mode, and copy and paste the following script. (To paste, just right click.) Anything after `#` is a comment explaining the purpose of the line. For more information of each command, see the LAMMPS documentation [here](https://docs.lammps.org).
+
+    #This document is named "lj.lmp"
     
-    lattice fcc 0.238732  
-    region box block 0 5 0 5 0 5  
-    create_box 1 box  
-    variable rnseed index 10  
-    variable number equal ceil(random(1,1000000000,${rnseed})/100000.0)   
-    print ${number}  
-    create_atoms 1 random 500 ${number} NULL overlap 0.5 maxtry 500  
+    units lj                      #this means we are using arbitrary length and energy units, as in v_LJ: no physical units are assigned to particles.
+    atom_style atomic             #means we are dealing with unbonded atoms
+    boundary p p p                #periodic boundary conditions
+    
+    lattice fcc 0.5               #defines a face-centered cubic lattice of number density 0.5
+    region box block 0 5 0 5 0 5  #defines our simulation region named "box", which is a cube with side length = 5 fcc unit-cell side length
+    create_atoms 1 box            #creates atoms of type "1" (there are only 1 type of particles) on the lattice in the region "box". 
       
-    timestep 0.00025
+    timestep 0.00025              #defines the time step (dt) of the simulation
 
-    mass 1 1.0
-    velocity all create 1 ${number}
-    read_dump lj_cut1_31.lammpstrj 3300000 x y z vx vy vz box no
+    mass 1 1.0                    #sets the mass of atoms of type "1" that we just created
+    velocity all create 1 2023    #gives all atom of a random velocity, such that the initial temperature is 1. 2023 is a random seed here.
 
-    pair_style lj/cut 1
-    pair_coeff 1 1 80.0 1.0 1
+    pair_style lj/cut 2.5         #defines the LJ potential. It is cut off (v(r) set to 0) after r > 2.5 \sigma
+    pair_coeff 1 1 1.0 1.0        #sets the LJ coefficients \varepsilon and \sigma between atom types "1" and "1". We are 
 
-    fix 1 all nvt temp 1 1 $(100.0*dt)
+    fix 1 all nvt temp 1.0 1.0 $(100.0*dt)  #sets the equation of state: we are fixing number of particles, volume and temperature during each time step. 
+                                            #the 3 numbers after "temp" are thermostat parameters: intial and final temperatures, and temperature damping parameter
 
-    thermo 1000
-    thermo_modify format line "%d %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e"
+    thermo 1000                                                                     #prints thermodynamic information every 1000 time steps 
+    thermo_modify format line "%d %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e"     #...and specifically, print thermodynamic information in this suggested format
 
-    dump my_dump2 all custom 100 lj_cut1_32.lammpstrj id type x y z vx vy vz
+    dump my_dump all custom 100 lj_cut.lammpstrj id type x y z vx vy vz             #dumps information of all atoms every 100 timesteps in the following custom style:
+                                                                                    #id of atom, type of atom, x y z coordinates, and x y z components of its velocity
+
+    run 100000                                                                      #runs 100000 timesteps
+
+Save this document (press 'Esc' then type `:wq`), and now we can run the script.
+
+    $ lmp -in lj.lmp
+
+### Bonus skill! extra information that you can compute
 
     compute myRDF all rdf 200 1 1
     fix 2 all ave/time 50 6 1000 c_myRDF[*] file lj_cut1.rdf mode vector ave window 6
@@ -115,7 +134,3 @@ We will use OVITO to visualize the molecules. No command-line is needed here. It
     fix store_msd_1 all vector 10 c_msd_1[4]
     variable fitslope_1 equal slope(f_store_msd_1)/6/(10*dt)
     fix 3 all ave/time 100 1 100 c_msd_1[4] v_fitslope_1 c_myvacf[4] file lj_cut1_diffusion.txt
-
-    run 100000
-
-to be continued...
