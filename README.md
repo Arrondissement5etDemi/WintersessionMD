@@ -91,38 +91,91 @@ where $r$ is the distance between two molecules, $\varepsilon$ is an energy para
  
 We want to simulate a fluid in which each two particles are interacting with $v_{LJ}(r)$. Let's write a LAMMPS script for that! Open a file called `lj.lmp` using the command `vi lj.lmp`, press `i` for insert mode, and copy and paste the following script. (To paste, just right click.) Anything after `#` is a comment explaining the purpose of the line. For more information of each command, see the LAMMPS documentation [here](https://docs.lammps.org).
 
-    #This document is named "lj.lmp"
-    
-    units lj                      #this means we are using arbitrary length and energy units, as in v_LJ: no physical units are assigned to particles.
-    atom_style atomic             #means we are dealing with unbonded atoms
-    boundary p p p                #periodic boundary conditions
-    
-    lattice fcc 0.5               #defines a face-centered cubic lattice of number density 0.5
-    region box block 0 5 0 5 0 5  #defines our simulation region named "box", which is a cube with side length = 5 fcc unit-cell side length
-    create_atoms 1 box            #creates atoms of type "1" (there are only 1 type of particles) on the lattice in the region "box". 
-      
-    timestep 0.00025              #defines the time step (dt) of the simulation
+```julia
+#This document is named "lj.lmp"
 
-    mass 1 1.0                    #sets the mass of atoms of type "1" that we just created
-    velocity all create 1 2023    #gives all atom of a random velocity, such that the initial temperature is 1. 2023 is a random seed here.
+units lj                      #this means we are using arbitrary length and energy units, as in v_LJ: no physical units are assigned to particles.
+atom_style atomic             #means we are dealing with unbonded atoms
+boundary p p p                #periodic boundary conditions
 
-    pair_style lj/cut 2.5         #defines the LJ potential. It is cut off (v(r) set to 0) after r > 2.5 \sigma
-    pair_coeff 1 1 1.0 1.0        #sets the LJ coefficients \varepsilon and \sigma between atom types "1" and "1". We simply set both \varepsilon and \sigma to be 1.
+lattice fcc 0.2                     #defines a face-centered cubic lattice of number density 0.2
+region my_region block 0 7 0 7 0 7 #defines a geometric simulation region named "my_region", which is a cube with side length = 7 fcc unit-cell side length
+create_box 1 my_region              #creates a simulation box with 1 atom types in the region "my_region" just created
+create_atoms 1 box                  #creates atoms of type "1" (there are only 1 type of particles) on the lattice in the box just created
+  
+timestep 0.0025              #defines the time step (dt) of the simulation
 
-    fix 1 all nvt temp 1.0 1.0 $(100.0*dt)  #sets the equation of state: we are fixing number of particles, volume and temperature during each time step. 
-                                            #the 3 numbers after "temp" are thermostat parameters: intial and final temperatures, and temperature damping parameter
+mass 1 1.0                    #sets the mass of atoms of type "1" that we just created
+velocity all create 0.9 2023    #gives all atom of a random velocity, such that the initial temperature is 0.9. 2023 is a random seed here.
 
-    thermo 1000                                                                     #prints thermodynamic information every 1000 time steps 
-    thermo_modify format line "%d %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e"     #...and specifically, print thermodynamic information in this suggested format
+pair_style lj/cut 2.5         #defines the LJ potential. It is cut off (v(r) set to 0) after r > 2.5 \sigma
+pair_coeff 1 1 1.0 1.0        #sets the LJ coefficients \varepsilon and \sigma between atom types "1" and "1". We simply set both \varepsilon and \sigma to be 1.
 
-    dump my_dump all custom 100 lj_cut.lammpstrj id type x y z vx vy vz             #dumps information of all atoms every 100 timesteps in the following custom style:
-                                                                                    #id of atom, type of atom, x y z coordinates, and x y z components of its velocity
+fix 1 all nvt temp 0.9 0.9 $(100.0*dt)  #sets the equation of state: we are fixing number of particles, volume and temperature during each time step. 
+                                        #the 3 numbers after "temp" are thermostat parameters: intial and final temperatures, and temperature damping parameter
 
-    run 100000                                                                      #runs 100000 timesteps
+thermo 1000                                                                     #prints thermodynamic information every 1000 time steps 
+thermo_modify format line "%d %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e"     #...and specifically, print thermodynamic information in this suggested format
+
+dump my_dump all custom 100 lj_cut.lammpstrj id type x y z vx vy vz             #dumps information of all atoms every 100 timesteps in the following custom style:
+                                                                                #id of atom, type of atom, x y z coordinates, and x y z components of its velocity
+
+run 50000                                                                      #runs 50,000 timesteps
+```
 
 Save this document (press 'Esc' then type `:wq`), and now we can run the script.
 
     $ lmp -in lj.lmp
+
+The expected output should be like this:
+
+```
+LAMMPS (23 Jun 2022 - Update 2)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Lattice spacing in x,y,z = 2.7144176 2.7144176 2.7144176
+Created orthogonal box = (0 0 0) to (19.000923 19.000923 19.000923)
+  1 by 1 by 1 MPI processor grid
+Created 1372 atoms
+  using lattice units in orthogonal box = (0 0 0) to (19.000923 19.000923 19.000923)
+  create_atoms CPU = 0.000 seconds
+Generated 0 of 0 mixed pair_coeff terms from geometric mixing rule
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 2.8
+  ghost atom cutoff = 2.8
+  binsize = 1.4, bins = 14 14 14
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : lj
+  Current step  : 0
+  Time step     : 0.0025
+Per MPI rank memory allocation (min/avg/max) = 4.501 | 4.501 | 4.501 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press
+0 9.000000e-01 -4.704000e-01 0.000000e+00 8.786160e-01 -4.451195e-03
+1000 8.797737e-01 -1.463792e+00 0.000000e+00 -1.450932e-01 5.004053e-02
+2000 8.778546e-01 -1.591754e+00 0.000000e+00 -2.759314e-01 3.936154e-02
+3000 8.811496e-01 -1.638126e+00 0.000000e+00 -3.173651e-01 3.638044e-02
+4000 9.018802e-01 -1.752085e+00 0.000000e+00 -4.002504e-01 4.542555e-02
+5000 8.977694e-01 -1.832009e+00 0.000000e+00 -4.863368e-01 3.909381e-02
+6000 9.158538e-01 -1.845641e+00 0.000000e+00 -4.728619e-01 4.086728e-02
+7000 8.964092e-01 -1.842455e+00 0.000000e+00 -4.988211e-01 6.344970e-02
+8000 9.088412e-01 -1.943820e+00 0.000000e+00 -5.815516e-01 1.599530e-02
+9000 9.199665e-01 -1.986218e+00 0.000000e+00 -6.072741e-01 3.355576e-02
+10000 8.867009e-01 -2.046282e+00 0.000000e+00 -7.172006e-01 1.817911e-02
+```
+
+There will be two extra files in the `MD` folder after the simulation. `log.lammps` is identical to the screen output. `lj_cut.lammpstrj` is the trajectory of the simulation. Copy this file to your local machine and let's visualize it in OVITO.
+
+Open Ovito, click `File` -> `Load File`, then select `lj_cut.lammpstrj`. Press the ▶ button at center bottom. Enjoy!
+
+What do you see as the system evolves? Is the phenomena you see consistent with [this paper](https://pure.uva.nl/ws/files/2199981/29999_3595309057smi922.pdf)?
 
 ### Bonus skill! extra information that you can compute
 
