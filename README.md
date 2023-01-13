@@ -177,6 +177,20 @@ Open Ovito, click `File` -> `Load File`, then select `lj_cut.lammpstrj`. Press t
 
 What do you see as the system evolves? Is the phenomena you see consistent with [this paper](https://pure.uva.nl/ws/files/2199981/29999_3595309057smi922.pdf)?
 
+![A snapshot of what you will see](https://github.com/Arrondissement5etDemi/WintersessionMD/blob/main/snapshot.png)
+
+### OVITO features
+
+We will demonstrate some useful features of OVITO, including  
+-change color and size of particles  
+-visualizing velocities  
+-generate particle trajectories  
+-create snapshots and videos  
+
+> Excercise: Modify `lj.lmp` so that it simulates a quench of the LJ fluid at number density $\rho = 0.3$, from initial temperature $T_i=1.5$ to final temperature $T_f=0.01$. Set timestep $dt = 0.001$ and run 20000 steps. Visualize the trajectory in OVITO.
+
+
+
 ### Bonus skill! extra information that you can compute
 
     compute myRDF all rdf 200 1 1
