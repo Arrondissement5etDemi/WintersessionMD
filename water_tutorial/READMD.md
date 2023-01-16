@@ -24,4 +24,4 @@ scp <YourNetID>@adroit-vis.princeton.edu:PATH_TO_GRO .
 ```
 
 Load the `.gro` file in VMD:
-![ice](ice128.png)
+![ice](ice1h.png)
