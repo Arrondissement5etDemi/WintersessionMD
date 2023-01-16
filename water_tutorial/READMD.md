@@ -59,3 +59,16 @@ We may directly generate the data file in VMD's Tk Console by using
 ```
 source topo.tcl
 ```
+
+Upload the data file onto the cluster:
+```
+scp water.data <YourNetID>@adroit-vis.princeton.edu:PATH_TO_WATER_TUTORIAL
+```
+
+## Run the simulation
+The initial configuration of our simulation is ice Ih.
+![init](init.png)
+At 300 K, you will observe ice Ih melting. 
+![melting](melting.png)
+Ice will remain to be ice at 100 K.
+![nomelting](nomelting.png)
