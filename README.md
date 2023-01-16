@@ -211,14 +211,13 @@ Velocity autocorrelation function:
 
 ``` 
     compute myvacf all vacf
-    fix storeMyVacf all vector 1 c_myvacf[4]
-    fix 4 all ave/time 100 1 100 c_myvacf[4] lj_cut_vacf.txt
+    fix 3 all ave/time 100 1 100 c_myvacf[4] lj_cut_vacf.txt
 ```
 
-Mean squared distance traveled by the particles:
+Mean squared distance traveled by the particles and the diffusion constant:
 ```
     compute msd_1 all msd
     fix store_msd_1 all vector 10 c_msd_1[4]
     variable fitslope_1 equal slope(f_store_msd_1)/6/(10*dt)
-    fix 3 all ave/time 100 1 100 c_msd_1[4] v_fitslope_1 file lj_cut_diffusion.txt
+    fix 4 all ave/time 100 1 100 c_msd_1[4] v_fitslope_1 file lj_cut_diffusion.txt
 ```
