@@ -123,6 +123,7 @@ thermo_modify format line "%d %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e" norm
 
 dump my_dump all custom 100 lj_cut.lammpstrj id type x y z vx vy vz             #dumps information of all atoms every 100 timesteps in the following custom style:
                                                                                 #id of atom, type of atom, x y z coordinates, and x y z components of its velocity
+dump_modify my_dump sort id                                                     #sorts id of atoms from smallest to largest
 
 run 50000                                                                      #runs 50,000 timesteps
 ```
