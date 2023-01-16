@@ -201,13 +201,23 @@ The final snapshot should look something like this:
 
 ### Bonus skill! extra information that you can compute
 
-    compute myRDF all rdf 200 1 1
-    fix 2 all ave/time 50 6 1000 c_myRDF[*] file lj_cut1.rdf mode vector ave window 6
+Radial distribution function:
+```
+    compute myRDF all rdf 200 1 1 #radial distribution function
+    fix 2 all ave/time 50 6 1000 c_myRDF[*] file lj_cut.rdf mode vector ave window 6
+```
 
+Velocity autocorrelation function:
+
+``` 
     compute myvacf all vacf
     fix storeMyVacf all vector 1 c_myvacf[4]
+```
 
+Mean squared distance traveled by the particles:
+```
     compute msd_1 all msd
     fix store_msd_1 all vector 10 c_msd_1[4]
     variable fitslope_1 equal slope(f_store_msd_1)/6/(10*dt)
     fix 3 all ave/time 100 1 100 c_msd_1[4] v_fitslope_1 c_myvacf[4] file lj_cut1_diffusion.txt
+```
