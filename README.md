@@ -123,6 +123,7 @@ thermo_modify format line "%d %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e" norm
 
 dump my_dump all custom 100 lj_cut.lammpstrj id type x y z vx vy vz             #dumps information of all atoms every 100 timesteps in the following custom style:
                                                                                 #id of atom, type of atom, x y z coordinates, and x y z components of its velocity
+dump_modify my_dump sort id                                                     #sorts id of atoms from smallest to largest
 
 run 50000                                                                      #runs 50,000 timesteps
 ```
@@ -211,13 +212,13 @@ Velocity autocorrelation function:
 
 ``` 
     compute myvacf all vacf
-    fix storeMyVacf all vector 1 c_myvacf[4]
+    fix 3 all ave/time 100 1 100 c_myvacf[4] lj_cut_vacf.txt
 ```
 
-Mean squared distance traveled by the particles:
+Mean squared distance traveled by the particles and the diffusion constant:
 ```
     compute msd_1 all msd
     fix store_msd_1 all vector 10 c_msd_1[4]
     variable fitslope_1 equal slope(f_store_msd_1)/6/(10*dt)
-    fix 3 all ave/time 100 1 100 c_msd_1[4] v_fitslope_1 c_myvacf[4] file lj_cut1_diffusion.txt
+    fix 4 all ave/time 100 1 100 c_msd_1[4] v_fitslope_1 file lj_cut_diffusion.txt
 ```
