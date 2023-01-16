@@ -21,9 +21,10 @@ fix 1 all nvt temp 0.9 0.9 $(100.0*dt)  #sets the equation of state: we are fixi
                                         #the 3 numbers after "temp" are thermostat parameters: intial and final temperatures, and temperature damping parameter
 
 thermo 1000                                                                     #prints thermodynamic information every 1000 time steps 
-thermo_modify format line "%d %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e"     #...and specifically, print thermodynamic information in this suggested format
+thermo_modify format line "%d %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e" norm no     #...and specifically, print thermodynamic information in this suggested format
 
 dump my_dump all custom 100 lj_cut.lammpstrj id type x y z vx vy vz             #dumps information of all atoms every 100 timesteps in the following custom style:
                                                                                 #id of atom, type of atom, x y z coordinates, and x y z components of its velocity
+dump_modify my_dump sort id
 
 run 50000                                                                      #runs 50,000 timesteps

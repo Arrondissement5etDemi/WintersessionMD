@@ -5,6 +5,10 @@ Introduction to Molecular Dynamics with LAMMPS for Princeton Wintersession 2023
 
 Atoms and molecules are like balls and springs, interacting under rules of quantum mechanics. The interactions can be partially approximated by classical effective forces. [Molecular dynamics](https://en.wikipedia.org/wiki/Molecular_dynamics) (MD) solves the equations of motion for you! It is a computer simulation method for analyzing the physical movements of atoms and molecules. The atoms and molecules are allowed to interact for a fixed period of time, giving a view of the dynamic "evolution" of the system. 
 
+Simply speaking, it solves the [Langevin equation](https://en.wikipedia.org/wiki/Langevin_dynamics):
+
+mass*acceleration = potential force + damping force + noise.
+
 Large-scale Atomic/Molecular Massively Parallel Simulator ([LAMMPS](https://www.lammps.org/#gsc.tab=0)) is an efficient and popular molecular dynamics program from Sandia National Laboratories. It's written for serial and parallel computing alike. For this workshop, we will mainly learn its serial version, but will touch upon the parallel version if we have time.
 
  ![LAMMPS logo](https://docs.lammps.org/_static/lammps-logo.png)
@@ -115,7 +119,7 @@ fix 1 all nvt temp 0.9 0.9 $(100.0*dt)  #sets the equation of state: we are fixi
                                         #the 3 numbers after "temp" are thermostat parameters: intial and final temperatures, and temperature damping parameter
 
 thermo 1000                                                                     #prints thermodynamic information every 1000 time steps 
-thermo_modify format line "%d %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e"     #...and specifically, print thermodynamic information in this suggested format
+thermo_modify format line "%d %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e" norm no     #...and specifically, print thermodynamic information in this suggested format
 
 dump my_dump all custom 100 lj_cut.lammpstrj id type x y z vx vy vz             #dumps information of all atoms every 100 timesteps in the following custom style:
                                                                                 #id of atom, type of atom, x y z coordinates, and x y z components of its velocity
@@ -197,13 +201,23 @@ The final snapshot should look something like this:
 
 ### Bonus skill! extra information that you can compute
 
-    compute myRDF all rdf 200 1 1
-    fix 2 all ave/time 50 6 1000 c_myRDF[*] file lj_cut1.rdf mode vector ave window 6
+Radial distribution function:
+```
+    compute myRDF all rdf 200 1 1 #radial distribution function
+    fix 2 all ave/time 50 6 1000 c_myRDF[*] file lj_cut.rdf mode vector ave window 6
+```
 
+Velocity autocorrelation function:
+
+``` 
     compute myvacf all vacf
     fix storeMyVacf all vector 1 c_myvacf[4]
+```
 
+Mean squared distance traveled by the particles:
+```
     compute msd_1 all msd
     fix store_msd_1 all vector 10 c_msd_1[4]
     variable fitslope_1 equal slope(f_store_msd_1)/6/(10*dt)
     fix 3 all ave/time 100 1 100 c_msd_1[4] v_fitslope_1 c_myvacf[4] file lj_cut1_diffusion.txt
+```
