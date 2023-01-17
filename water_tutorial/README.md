@@ -89,3 +89,8 @@ lmp -in spec.lmp
 ```
 
 Things are similar for 100 K.
+
+If you are interested in exploring Deep Potential, a flavor of Machine Learning Forcefield, you may check:
+```
+https://github.com/CSIprinceton/workshop-july-2022/
+```
