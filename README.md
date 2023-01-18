@@ -27,6 +27,10 @@ This page introduces how to connect to the clusters via ssh: https://researchcom
 This page introduces how to transfer files between your own computer and clusters via scp: https://researchcomputing.princeton.edu/support/knowledge-base/transfer-files
 This page is a quick guide to vim, a powerfule text editor: https://www.tutorialspoint.com/vim/vim_quick_guide.htm
 
+You can use `ssh-keygen` and `ssh-copy-id` to avoid typing passwords every time you login and scp. Refer to these to pages:
+https://www.ssh.com/academy/ssh/keygen
+https://www.ssh.com/academy/ssh/copy-id
+
 ### Practice 1:
 On adroit, create a text file called "remote.txt" with `vim`, and type
 ```
