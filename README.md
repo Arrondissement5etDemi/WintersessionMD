@@ -143,6 +143,7 @@ List of command line options supported by this LAMMPS executable:
 
 OS: Linux "Springdale Open Enterprise Linux 8.7 (Modena)" 4.18.0-425.3.1.el8.x86_64 x86_64
 ```
+Type `q` to exit this help information.
 
 ### Install OVITO
 
