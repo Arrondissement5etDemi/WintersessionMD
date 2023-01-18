@@ -22,7 +22,24 @@ http://www.cs.columbia.edu/~sedwards/classes/2015/1102-fall/Command%20Prompt%20C
 We also recommend you to download the software "WinSCP": https://winscp.net/eng/index.php, which is a very intuitive tool to transfer files from your computer to the remote machine.
 
 ### For all users: Basic unix commands
+You may refer to this page for some basic linux commands: https://www.guru99.com/linux-commands-cheat-sheet.html.
+This page introduces how to connect to the clusters via ssh: https://researchcomputing.princeton.edu/support/knowledge-base/connect-ssh
+This page introduces how to transfer files between your own computer and clusters via scp: https://researchcomputing.princeton.edu/support/knowledge-base/transfer-files
+This page is a quick guide to vim, a powerfule text editor: https://www.tutorialspoint.com/vim/vim_quick_guide.htm
 
+### Practice 1:
+On adroit, create a text file called "remote.txt" with `vim`, and type
+```
+Hi, molecular dynamics!
+```
+in it. Put it in a folder called `remote`. Download the folder to your own computer and then open the text file with `vim`.
+
+### Practive 2:
+On your own computer, create a text file called "local.txt" with `vim`, and type
+```
+Hello, LAMMPS!
+```
+in ti. Upload it to adroit, and open it with `vim`.
 
 ## Installation
 
