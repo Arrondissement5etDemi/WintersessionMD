@@ -111,6 +111,39 @@ Expected output for `$ lmp_serial` :
 
 The program is waiting for LAMMPS commands. `ctrl/command + c` to stop the execution for now, as we will provide the commands in the form of a file.
 
+You can use `lmp_serial -h` (or `lmp -h` for some cases) to see the help information of `LAMMPS`:
+```
+Large-scale Atomic/Molecular Massively Parallel Simulator - 23 Jun 2022 - Update 1
+
+Usage example: lmp_serial -var t 300 -echo screen -in in.alloy
+
+List of command line options supported by this LAMMPS executable:
+
+-echo none/screen/log/both  : echoing of input script (-e)
+-help                       : print this help message (-h)
+-in none/filename           : read input from file or stdin (default) (-i)
+-kokkos on/off ...          : turn KOKKOS mode on or off (-k)
+-log none/filename          : where to send log output (-l)
+-mdi '<mdi flags>'          : pass flags to the MolSSI Driver Interface
+-mpicolor color             : which exe in a multi-exe mpirun cmd (-m)
+-cite                       : select citation reminder style (-c)
+-nocite                     : disable citation reminder (-nc)
+-package style ...          : invoke package command (-pk)
+-partition size1 size2 ...  : assign partition sizes (-p)
+-plog basename              : basename for partition logs (-pl)
+-pscreen basename           : basename for partition screens (-ps)
+-restart2data rfile dfile ... : convert restart to data file (-r2data)
+-restart2dump rfile dgroup dstyle dfile ... 
+                            : convert restart to dump file (-r2dump)
+-reorder topology-specs     : processor reordering (-r)
+-screen none/filename       : where to send screen output (-sc)
+-skiprun                    : skip loops in run and minimize (-sr)
+-suffix gpu/intel/opt/omp   : style suffix to apply (-sf)
+-var varname value          : set index style variable (-v)
+
+OS: Linux "Springdale Open Enterprise Linux 8.7 (Modena)" 4.18.0-425.3.1.el8.x86_64 x86_64
+```
+
 ### Install OVITO
 
 We will use OVITO to visualize the molecules. No command-line is needed here. It can be downloaded and installed to your local machine via [this link](https://www.ovito.org/). You can also build it via GitHub source code following the instructions [here](https://www.ovito.org/manual/development/build_linux.html).
