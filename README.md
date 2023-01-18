@@ -13,6 +13,17 @@ Large-scale Atomic/Molecular Massively Parallel Simulator ([LAMMPS](https://www.
 
  ![LAMMPS logo](https://docs.lammps.org/_static/lammps-logo.png)
 
+## Prelude: command line crash course
+
+### For Windows users: Command Prompt
+Search "command prompt" to see the terminal of your Windows computer. Some common commands can be found here.
+http://www.cs.columbia.edu/~sedwards/classes/2015/1102-fall/Command%20Prompt%20Cheatsheet.pdf
+
+We also recommend you to download the software "WinSCP": https://winscp.net/eng/index.php, which is a very intuitive tool to transfer files from your computer to the remote machine.
+
+### For all users: Basic unix commands
+
+
 ## Installation
 
 ### Getting into the cluster
