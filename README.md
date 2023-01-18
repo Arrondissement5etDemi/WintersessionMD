@@ -145,6 +145,11 @@ OS: Linux "Springdale Open Enterprise Linux 8.7 (Modena)" 4.18.0-425.3.1.el8.x86
 ```
 Type `q` to exit this help information.
 
+### Install LAMMPS on your local computer if you do not have adroit
+
+Please select "pre-build executables". 
+https://www.lammps.org/download.html
+
 ### Install OVITO
 
 We will use OVITO to visualize the molecules. No command-line is needed here. It can be downloaded and installed to your local machine via [this link](https://www.ovito.org/). You can also build it via GitHub source code following the instructions [here](https://www.ovito.org/manual/development/build_linux.html).
