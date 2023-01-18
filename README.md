@@ -19,7 +19,7 @@ Large-scale Atomic/Molecular Massively Parallel Simulator ([LAMMPS](https://www.
 Search "command prompt" to see the terminal of your Windows computer. Some common commands can be found here.
 http://www.cs.columbia.edu/~sedwards/classes/2015/1102-fall/Command%20Prompt%20Cheatsheet.pdf
 
-We also recommend you to download the software "WinSCP": https://winscp.net/eng/index.php, which is a very intuitive tool to transfer files from your computer to the remote machine.
+We also recommend you to download the software "WinSCP": https://winscp.net/eng/index.php, which is an intuitive tool to transfer files from your computer to the remote machine and vice versa.
 
 ### For all users: Basic unix commands
 You may refer to this page for some basic linux commands: https://www.guru99.com/linux-commands-cheat-sheet.html.
