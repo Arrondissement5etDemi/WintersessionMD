@@ -41,7 +41,7 @@ Hi, molecular dynamics!
 in it. Put it in a folder called `remote`. Download the folder to your own computer and then open the text file with `vim`.
 
 ### Practice 2:
-On your own computer, create a text file called "local.txt" with `vim`, and type
+On your own computer, create a text file called "local.txt" with `vim` or `echo`, and type
 ```
 Hello, LAMMPS!
 ```
@@ -144,6 +144,11 @@ List of command line options supported by this LAMMPS executable:
 OS: Linux "Springdale Open Enterprise Linux 8.7 (Modena)" 4.18.0-425.3.1.el8.x86_64 x86_64
 ```
 Type `q` to exit this help information.
+
+### Install LAMMPS on your local computer if you do not have adroit
+
+Please select "pre-build executables". 
+https://www.lammps.org/download.html
 
 ### Install OVITO
 
